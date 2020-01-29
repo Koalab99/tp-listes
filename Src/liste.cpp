@@ -4,69 +4,149 @@
 #include <cassert>
 
 Liste::Liste() {
-  /* votre code ici */
+	head = nullptr;
 }
 
 Liste::Liste(const Liste& autre) {
-  /* votre code ici */
+	const Cellule *cur = autre.tete();
+	if(!cur) {
+		head = nullptr;
+		return;
+	}
+	while(cur) {
+		this->ajouter_en_queue(cur->get_value());
+		cur = cur->get_next();
+	}
 }
 
 Liste& Liste::operator=(const Liste& autre) {
-  /* votre code ici */
-  return *this ;
+	// Clean the current data
+	Cellule *current;
+	while(head) {
+		current = head;
+		head = current->get_next();
+		delete current;
+	}
+	const Cellule *cur = autre.tete();
+	if(!cur) {
+		head = nullptr;
+		return *this;
+	}
+	while(cur) {
+		this->ajouter_en_queue(cur->get_value());
+		cur = cur->get_next();
+	}
+	return *this ;
 }
 
 Liste::~Liste() {
-  /* votre code ici */
+	Cellule *current;
+	while(head) {
+		current = head;
+		head = current->get_next();
+		delete current;
+	}
 }
 
 void Liste::ajouter_en_tete(int valeur) {
-  /* votre code ici */
+	Cellule *first = new Cellule(valeur); 
+	assert(first);
+	first->setNext(head);
+	head = first;
 }
 
 void Liste::ajouter_en_queue(int valeur) {
-  /* votre code ici */
+	Cellule *last = new Cellule(valeur);
+	assert(last);
+	if(!head) {
+		head = last;
+		return;
+	}
+	Cellule *current = head;
+	while(current->get_next()) {
+		current = current->get_next();
+	}
+	current->setNext(last);
 }
 
 void Liste::supprimer_en_tete() {
-  /* votre code ici */
+	assert(head);
+	Cellule *del = head;
+	head = head->get_next();
+	delete del;
 }
 
 Cellule* Liste::tete() {
-  /* votre code ici */
-  return nullptr ;
+	return head;
 }
 
 const Cellule* Liste::tete() const {
-  /* votre code ici */
-  return nullptr ;
+	return head;
 }
 
 Cellule* Liste::queue() {
-  /* votre code ici */
-  return nullptr ;
+	if(!head) {
+		return nullptr;
+	}
+	Cellule *current = head;
+	while(current->get_next()) {
+		current = current->get_next();	
+	}
+	return current;
 }
 
 const Cellule* Liste::queue() const {
-  /* votre code ici */
-  return nullptr ;
+	if(!head) {
+		return nullptr;
+	}
+	Cellule *current = head;
+	while(current->get_next()) {
+		current = current->get_next();	
+	}
+	return current;
 }
 
 int Liste::taille() const {
-  /* votre code ici */
-  return 0 ;
+	int count = 0;
+	Cellule *current = head;
+	while(current) {
+		current = current->get_next();	
+		count++;
+	};
+	return count;
 }
 
 Cellule* Liste::recherche(int valeur) {
-  /* votre code ici */
-  return nullptr ;
+	Cellule *current = head;
+	while(current) {
+		if(current->get_value() == valeur) {
+			break;
+		}
+		current = current->get_next();	
+	};
+	if(!current) {
+		return nullptr;
+	}
+	Cellule *ret = new Cellule(current->get_value());
+	return ret;
 }
 
 const Cellule* Liste::recherche(int valeur) const {
-  /* votre code ici */
-  return nullptr ;
+	Cellule *current = head;
+	while(current) {
+		if(current->get_value() == valeur) {
+			break;
+		}
+		current = current->get_next();	
+	};
+	return current;
 }
 
 void Liste::afficher() const {
-  /* votre code ici */
+	Cellule *cell = head;
+	while(cell) {
+		printf("%d ", cell->get_value());
+		cell = cell->get_next();
+	}
+	printf("\n");	
 }

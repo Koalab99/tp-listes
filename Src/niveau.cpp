@@ -22,6 +22,7 @@ void Niveau::dessiner() {
   init_pair(1, COLOR_BLUE, COLOR_BLUE) ;
   attron(COLOR_PAIR(1)) ;
 
+  int num = 0;
   /* dessin des murs */
   Cellule* mur = murs.tete() ;
   while(mur) {
@@ -29,7 +30,9 @@ void Niveau::dessiner() {
     short int mc =  colonne(mur->valeur) ;
     mvaddch(ml, 2*mc, ' ') ;
     mvaddch(ml, 2*mc + 1, ' ') ;
-    mur = mur->suivante ;
+    fprintf(stderr, "%d\n", num++);
+
+    mur = mur->get_next();
   }
 
   /* couleur normale */

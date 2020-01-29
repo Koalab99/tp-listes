@@ -70,7 +70,7 @@ void Serpent::dessiner() {
     short int sc = colonne(segment->valeur) ;
     mvaddch(sl, 2*sc, ' ') ;
     mvaddch(sl, 2*sc + 1, ' ') ;
-    segment = segment->suivante ;
+    segment = segment->get_next();
   }
   /* couleur normale */
   attroff(COLOR_PAIR(1)) ;
