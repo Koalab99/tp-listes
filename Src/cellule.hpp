@@ -4,11 +4,12 @@
 class Cellule {
 private:
 	Cellule *next;
+	int level;
 public:
 	int valeur;
 	Cellule(void);
 	Cellule(int val);
-	Cellule(int val, Cellule *nxt);
+	Cellule(int val, int lvl, Cellule *nxt);
 
 	~Cellule(void);
 
@@ -16,8 +17,9 @@ public:
 	void setValue(int val);
 
 	Cellule *get_next(void);
+	Cellule *get_next(int lvl);
 	const Cellule *get_next(void) const;
-	void setNext(Cellule *cell);
+	void setNext(int lvl, Cellule *cell);
 } ;
 
 #endif

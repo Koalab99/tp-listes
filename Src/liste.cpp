@@ -51,7 +51,7 @@ Liste::~Liste() {
 void Liste::ajouter_en_tete(int valeur) {
 	Cellule *first = new Cellule(valeur); 
 	assert(first);
-	first->setNext(head);
+	first->setNext(0, head);
 	head = first;
 }
 
@@ -66,7 +66,7 @@ void Liste::ajouter_en_queue(int valeur) {
 	while(current->get_next()) {
 		current = current->get_next();
 	}
-	current->setNext(last);
+	current->setNext(0, last);
 }
 
 void Liste::supprimer_en_tete() {

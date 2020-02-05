@@ -11,8 +11,9 @@ Cellule::Cellule(int val) {
 	next = nullptr;
 }
 
-Cellule::Cellule(int val, Cellule *nxt) {
+Cellule::Cellule(int val, int lvl, Cellule *nxt) {
 	valeur = val;
+	level = lvl;
 	next = nxt;
 }
 
@@ -31,11 +32,18 @@ void Cellule::setValue(int val) {
 Cellule *Cellule::get_next(void) {
 	return this->next;
 }
+Cellule *Cellule::get_next(int lvl) {
+	if(lvl >= level) 
+		return nullptr;
+
+	return &next[lvl];
+}
 
 const Cellule *Cellule::get_next(void) const {
 	return this->next;
 }
 
-void Cellule::setNext(Cellule *cell) {
+void Cellule::setNext(int lvl, Cellule *cell) {
+	level = lvl;
 	next = cell;	
 }
