@@ -3,22 +3,14 @@
 
 Cellule::Cellule(void) {
 	valeur = 0;
-	next = nullptr;
 }
 
 Cellule::Cellule(int val) {
 	valeur = val;
-	next = nullptr;
-}
-
-Cellule::Cellule(int val, int lvl, Cellule *nxt) {
-	valeur = val;
-	level = lvl;
-	next = nxt;
 }
 
 Cellule::~Cellule() {
-	next = nullptr;
+	// *exists*
 }
 
 int Cellule::get_value(void) const {
@@ -30,20 +22,27 @@ void Cellule::setValue(int val) {
 }
 
 Cellule *Cellule::get_next(void) {
-	return this->next;
+	if((int)next.size() == 0) {
+		return nullptr;
+	}
+	return next[0];
 }
 Cellule *Cellule::get_next(int lvl) {
-	if(lvl >= level) 
+	if(lvl >= (int)next.size()) 
 		return nullptr;
 
-	return &next[lvl];
+	return next[lvl];
 }
 
 const Cellule *Cellule::get_next(void) const {
-	return this->next;
+	return next[0];
 }
 
 void Cellule::setNext(int lvl, Cellule *cell) {
-	level = lvl;
-	next = cell;	
+	if((int)next.size() == lvl) {
+		next.push_back(cell);
+	}
+	else if((int)next.size() > lvl) {
+		next[lvl] = cell;
+	}
 }
